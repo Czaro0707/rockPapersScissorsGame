@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rock-paper-scissors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <section class="board">
+      <div class="board__description">
+        <img class="board__img" src="./images/logo.svg" alt="rock-paper-scissors" class="board__description__img" />
+      </div>
+      <div class="board__result-container">
+        <div class="board__result">
+          <p class="board__result__title">score</p>
+          <p class="board__result__score">12</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="game">
+      <div class="game__paper game__button">
+        <img class="game__button__img" src="./images/icon-paper.svg" alt="icon-paper" class="game__icon-paper" />
+      </div>
+      <div class="game__scissors game__button">
+        <img class="game__button__img" src="./images/icon-scissors.svg" alt="icon-paper" class="game__icon-scissors" />
+      </div>
+      <div class="game__rock game__button">
+        <img class="game__button__img" src="./images/icon-rock.svg" alt="icon-rock" class="game__icon-rock" />
+      </div>
+      <section class="game__end notVisible">
+        <p class="game__end__description">
+          You Win
+        </p>
+        <button class="game__end__button">
+          play Again
+        </button>
+      </section>
+    </section>
+
+    <section class="rules">
+      <button class="rules__button">rules</button>
+    </section>
+
+  </div>
+
+  <section class="modal__background">
+    <div class="modal modal--computer">
+      <img class="modal__img modal__img--computer" src="./images/image-rules.svg" alt="modal__img-rules">
+      <span class="modal__exit modal__exit--computer">
+        <div class="modal__exit__firstStick modal__exit__stick"></div>
+        <div class="modal__exit__secondStick modal__exit__stick"></div>
+      </span>
+      <span class="modal__description modal__description--computer">Rules</span>
+    </div>
+  </section>
+
+
+  <div class="modal modal--phone">
+    <img class="modal__img modal__img--phone" src="./images/image-rules.svg" alt="modal__img-rules">
+    <span class="modal__exit modal__exit--phone">
+      <div class="modal__exit__firstStick modal__exit__stick"></div>
+      <div class="modal__exit__secondStick modal__exit__stick"></div>
+    </span>
+    <span class="modal__description  modal__description--phone">Rules</span>
+  </div>
+
+
+  <script src="./app/app.js" type="module"></script>
+</body>
+
+</html>

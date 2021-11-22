@@ -1,0 +1,88 @@
+$bg-color-start: hsl(214, 47%, 23%);
+$bg-color-end: hsl(237, 49%, 15%);
+
+$dark-text: hsl(229, 25%, 31%);
+$score-text: hsl(229, 64%, 46%);
+$board-border: hsl(217, 16%, 45%);
+
+$scissors-gradient-start: hsl(39, 89%, 49%);
+$scissors-gradient-end: hsl(40, 84%, 53%);
+
+$paper-gradient-start: hsl(230, 89%, 62%);
+$paper-gradient-end: hsl(230, 89%, 65%);
+
+$rock-gradient-start: hsl(349, 71%, 52%);
+$rock-gradient-end: hsl(349, 70%, 56%);
+
+$breakpoints: (xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1750px);
+
+@mixin breakpoint($name) {
+  @if not map-has-key($breakpoints, $name) {
+    @warn "Warning: `#{$name}` is not a valid breakpoint name.";
+  }
+
+  @else {
+    @media (orientation: portrait) and (min-height: map-get($breakpoints, $name)) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpointLandscape($name) {
+  @if not map-has-key($breakpoints, $name) {
+    @warn "Warning: `#{$name}` is not a valid breakpoint name.";
+  }
+
+  @else {
+    @media (orientation: landscape) and (min-width: map-get($breakpoints, $name)) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpointLandscapeIpad($name) {
+  @if not map-has-key($breakpoints, $name) {
+    @warn "Warning: `#{$name}` is not a valid breakpoint name.";
+  }
+
+  @else {
+    @media (orientation: landscape) and (min-width: map-get($breakpoints, $name)) and (min-height: 600px) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpointPortraitIpad($name) {
+  @if not map-has-key($breakpoints, $name) {
+    @warn "Warning: `#{$name}` is not a valid breakpoint name.";
+  }
+
+  @else {
+    @media (orientation: Portrait) and (min-width: map-get($breakpoints, $name)) and (min-height: 600px) {
+      @content;
+    }
+  }
+}
+
+// Jak użyć:
+
+//   @include breakpoint(xs) {
+//     font-size: 1.2em;
+//   }
+//   @include breakpoint(sm) {
+//     font-size: 1.4em;
+//     width: 30em;
+//   }
+//   @include breakpoint(md) {
+//     font-size: 1.6em;
+//   }
+//   @include breakpoint(lg) {
+//     font-size: 1.8em;
+//   }
+// }
