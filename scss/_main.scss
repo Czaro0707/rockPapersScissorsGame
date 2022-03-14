@@ -1,0 +1,727 @@
+body {
+  background: radial-gradient($bg-color-start, $bg-color-end);
+  min-height: 100vh;
+  width: 100vw;
+  font-family: "Barlow", sans-serif;
+}
+
+.wrapper {
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+
+  @include breakpointLandscape(xl) {
+    width: 50%;
+  }
+}
+
+.board {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 15vh;
+  min-height: 100px;
+  width: 100%;
+  margin: 5vh auto;
+  border: $board-border 4px solid;
+  border-radius: 10px;
+
+  @include breakpointLandscape(xl) {
+    height: 20vh;
+    min-height: 180px;
+  }
+
+  &__description {
+    height: 60%;
+    flex-basis: 40%;
+  }
+
+  &__img {
+    height: 100%;
+  }
+
+  &__result-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex-basis: 40%;
+    height: 100%;
+  }
+
+  &__result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: 70%;
+    min-height: 70px;
+    min-width: 70px;
+    max-width: 120px;
+    max-height: 120px;
+    padding: 10px 0;
+    background-color: #fff;
+    border-radius: 5px;
+
+    @include breakpointLandscape(xl) {
+      width: 55%;
+      padding: 15px 0;
+    }
+
+    &__title {
+      font-size: 10px;
+      color: $score-text;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+
+      @include breakpoint(lg) {
+        font-size: 16px;
+      }
+
+      @include breakpointLandscape(xl) {
+        font-size: 16px;
+      }
+    }
+
+    &__score {
+      font-size: 40px;
+      font-weight: 700;
+      color: $dark-text;
+
+      @include breakpoint(lg) {
+        font-size: 60px;
+      }
+
+      @include breakpointLandscape(xl) {
+        font-size: 65px;
+      }
+    }
+  }
+}
+
+.game {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 38vh;
+  height: 36vh;
+  margin-top: 15vh;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 15%;
+    left: 15%;
+    height: 70%;
+    width: 70%;
+    background-image: url("../images/bg-triangle.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+  }
+
+  @include breakpointLandscape(xs) {
+    margin-top: 5vh;
+    width: 60vh;
+    height: 57vh;
+  }
+
+  &--enabled {
+    position: absolute;
+    left: 0;
+    margin-top: 3vh;
+    padding-top: 3vh;
+    width: 100vw;
+    height: 55vh;
+    align-items: flex-start;
+
+    &::before {
+      content: "";
+      background-image: none;
+    }
+
+    @include breakpointLandscape(xs) {
+      height: 50vh;
+    }
+
+    @include breakpointLandscape(md) {
+      margin-top: 10vh;
+    }
+
+    @include breakpointLandscape(xl) {
+      position: absolute;
+      left: 5%;
+      width: 90vw;
+    }
+  }
+
+  &__paper {
+    border: $paper-gradient-start solid 10px;
+  }
+
+  &__scissors {
+    left: 65%;
+    border: $scissors-gradient-start solid 10px;
+  }
+
+  &__rock {
+    top: 50%;
+    left: 28%;
+    border: $rock-gradient-start solid 10px;
+  }
+
+  &__button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2vh;
+    box-shadow: inset 0 -1vh rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    height: 14vh;
+    width: 14vh;
+    background-color: #fff;
+    border-width: 1.5vh;
+
+    &__disabled {
+      display: none;
+    }
+
+    &__enabledComputer {
+      background-color: rgba(0, 0, 0, 0.25);
+      box-shadow: none;
+      margin: 0 0 0 2vh;
+    }
+
+    @include breakpointLandscape(xs) {
+      height: 22vh;
+      width: 22vh;
+      margin: 0 4vh;
+      border-width: 3vh;
+    }
+
+    &__enabled,
+    &__enabledComputer {
+      pointer-events: none;
+      cursor: auto;
+      height: 20vh;
+      width: 20vh;
+      max-width: 115px;
+      max-height: 115px;
+      margin: 0;
+
+      @include breakpoint(md) {
+        height: 17vh;
+        width: 17vh;
+        max-width: none;
+        max-height: none;
+      }
+
+      @include breakpointPortraitIpad(md) {
+        margin: 0 10vh 0 0;
+      }
+
+      @include breakpoint(lg) {
+        height: 22vh;
+        width: 22vh;
+      }
+
+      @include breakpointLandscape(xs) {
+        max-height: none;
+        max-width: none;
+        height: 35vh;
+        width: 35vh;
+        border-width: 4vh;
+      }
+
+      @include breakpointLandscapeIpad(xs) {
+        height: 25vh;
+        width: 25vh;
+        border-width: 2.5vh;
+      }
+
+      @include breakpointLandscapeIpad(xl) {
+        height: 30vh;
+        width: 30vh;
+      }
+    }
+
+    &__img {
+      width: 50%;
+    }
+
+    &__computerDescription,
+    &__playerDescription {
+      position: absolute;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 14px;
+      top: 50%;
+
+      @include breakpoint(sm) {
+        font-size: 14px;
+        top: 40%;
+      }
+
+      @include breakpoint(md) {
+        font-size: 18px;
+      }
+
+      @include breakpoint(lg) {
+        top: 50%;
+      }
+
+      @include breakpointLandscape(xs) {
+        top: -10%;
+      }
+
+      @include breakpointLandscape(md) {
+        font-size: 20px;
+      }
+
+      @include breakpointLandscape(lg) {
+        font-size: 24px;
+      }
+
+      @include breakpointLandscape(xl) {
+        bottom: 90%;
+        font-size: 28px;
+      }
+    }
+  }
+
+  &__empty {
+    background-color: rgba(0, 0, 0, 0.15);
+    height: 14vh;
+    width: 14vh;
+    border-radius: 50%;
+  }
+
+  &__end {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100%;
+    height: 15vh;
+
+    @include breakpointLandscape(xs) {
+      bottom: 45%;
+      transform: translate(-50%, -50%);
+    }
+
+    @include breakpointLandscape(sm) {
+      bottom: 40%;
+    }
+
+    &__description {
+      font-size: 45px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: white;
+      padding-bottom: 5%;
+
+      @include breakpoint(md) {
+        font-size: 55px;
+        padding-bottom: 10%;
+      }
+
+      @include breakpointLandscape(xs) {
+        font-size: 25px;
+        padding-bottom: 3%;
+      }
+
+      @include breakpointLandscape(sm) {
+        font-size: 35px;
+      }
+
+      @include breakpointLandscape(md) {
+        font-size: 45px;
+      }
+
+      @include breakpointLandscape(lg) {
+        font-size: 55px;
+      }
+
+      @include breakpointLandscape(xl) {
+        font-size: 65px;
+      }
+
+      @include breakpointLandscape(xxl) {
+        font-size: 75px;
+      }
+    }
+
+    &__button {
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: $dark-text;
+      letter-spacing: 2px;
+      width: 60%;
+      max-width: 300px;
+      padding: 4% 0;
+      border-radius: 10px;
+      background-color: #fff;
+
+      &:hover {
+        color: red;
+        transition: 0.2s;
+      }
+
+      @include breakpoint(md) {
+        font-size: 20px;
+        padding: 3% 0;
+      }
+
+      @include breakpointLandscape(xs) {
+        width: 20%;
+        padding: 2% 0;
+        font-size: 11px;
+      }
+
+      @include breakpointLandscape(sm) {
+        font-size: 14px;
+      }
+
+      @include breakpointLandscape(md) {
+        font-size: 18px;
+      }
+
+      @include breakpointLandscape(lg) {
+        font-size: 22px;
+      }
+
+      @include breakpointLandscape(xl) {
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+.rules {
+  position: absolute;
+  bottom: 8%;
+  right: 50%;
+  transform: translate(50%, 50%);
+
+  @include breakpointLandscape(xs) {
+    right: 10%;
+  }
+
+  @include breakpointLandscape(md) {
+    right: 10%;
+  }
+
+  @include breakpointLandscapeIpad(xl) {
+    right: 10%;
+    bottom: 8%;
+  }
+
+  &__button {
+    font-size: 16px;
+    height: 40px;
+    letter-spacing: 3px;
+    color: #fff;
+    padding: 10px 40px;
+    background-color: transparent;
+    border-radius: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    @include breakpointLandscape(xs) {
+      font-size: 12px;
+      height: 40px;
+      letter-spacing: 2px;
+      padding: 10px 20px;
+    }
+
+    @include breakpointLandscape(md) {
+      font-size: 14px;
+      height: 40px;
+      letter-spacing: 2px;
+      padding: 10px 40px;
+    }
+
+    @include breakpoint(lg) {
+      font-size: 30px;
+      height: 60px;
+      letter-spacing: 4px;
+      padding: 10px 70px;
+    }
+
+    @include breakpointLandscapeIpad(xl) {
+      font-size: 15px;
+      height: 40px;
+      letter-spacing: 3px;
+      padding: 10px 40px;
+    }
+  }
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 1;
+
+  &--computer {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22vw;
+    height: 25vw;
+    min-height: 450px;
+    min-width: 400px;
+    border-radius: 10px;
+  }
+
+  &--phone {
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__img {
+    &--computer {
+      margin-top: 75px;
+    }
+
+    &--phone {
+      height: 35%;
+
+      @include breakpointLandscape(xs) {
+        height: 65%;
+      }
+
+      @include breakpointLandscape(lg) {
+        height: 55%;
+      }
+    }
+  }
+
+  &__exit {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+
+    &--computer {
+      top: 5%;
+      right: 5%;
+    }
+
+    &--phone {
+      bottom: 10%;
+      width: 12%;
+      min-width: 50px;
+
+      @include breakpointLandscape(xs) {
+        right: 5%;
+      }
+    }
+
+    &__stick {
+      background-color: #b1b4c5;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 10%;
+      width: 80%;
+      border-radius: 30px;
+      transition: 0.3s ease-in-out;
+    }
+
+    &__firstStick {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &__secondStick {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:hover &__firstStick {
+      transform: translate(-50%, -50%) rotate(-180deg);
+      background-color: #050b2c;
+    }
+
+    &:hover &__secondStick {
+      transform: translate(-50%, -50%) rotate(-180deg);
+      background-color: #050b2c;
+    }
+  }
+
+  &__description {
+    position: absolute;
+    color: #050b2c;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &--computer {
+      font-size: 35px;
+      top: 6%;
+      left: 10%;
+    }
+
+    &--phone {
+      font-size: 5vh;
+      top: 15%;
+
+      @include breakpointLandscape(xs) {
+        font-size: 10vh;
+        top: 10%;
+        left: 5%;
+      }
+
+      @include breakpointLandscape(lg) {
+        font-size: 8vh;
+        top: 7%;
+        left: 5%;
+      }
+    }
+  }
+
+  &__background {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.rightMargin {
+  margin: 0 2vh 0 0;
+
+  @include breakpointPortraitIpad(md) {
+    margin: 0 10vh 0 0;
+  }
+
+  @include breakpoint(lg) {
+    margin: 0 8vh 0 0;
+  }
+
+  @include breakpointLandscape(xs) {
+    margin: 0 30vh 0 0;
+  }
+
+  @include breakpointLandscape(md) {
+    margin: 0 35vh 0 0;
+  }
+
+  @include breakpointLandscapeIpad(xs) {
+    margin: 0 15% 0 0;
+  }
+
+  @include breakpointLandscapeIpad(md) {
+    margin: 0 15% 0 0;
+  }
+}
+
+.leftMargin {
+  margin: 0 0 0 2vh;
+
+  @include breakpointPortraitIpad(md) {
+    margin: 0 0 0 10vh;
+  }
+
+  @include breakpoint(lg) {
+    margin: 0 0 0 8vh;
+  }
+
+  @include breakpointLandscape(xs) {
+    margin: 0 0 0 30vh;
+  }
+
+  @include breakpointLandscape(md) {
+    margin: 0 0 0 35vh;
+
+    @include breakpointLandscapeIpad(xs) {
+      margin: 0 0 0 15%;
+    }
+
+    @include breakpointLandscapeIpad(md) {
+      margin: 0 0 0 15%;
+    }
+  }
+}
+
+.notVisible {
+  display: none;
+}
+
+.winner {
+  animation: box-shadow 0.5s ease-in-out forwards;
+  z-index: -1;
+
+  @include breakpointLandscape(xs) {
+    animation-name: box-shadow-landscape1;
+  }
+
+  @include breakpointLandscape(lg) {
+    animation-name: box-shadow-landscape2;
+  }
+
+  @include breakpoint(lg) {
+    animation-name: box-shadow-landscape2;
+  }
+
+  @include breakpointLandscape(xxl) {
+    animation-name: box-shadow-landscape3;
+  }
+}
+
+@keyframes box-shadow {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 0 0 10px #2e385a, 0 0 0 25px #232c4b, 0 0 0 40px #1e2949;
+  }
+}
+
+@keyframes box-shadow-landscape1 {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 0 0 15px #2e385a, 0 0 0 30px #232c4b, 0 0 0 60px #1e2949;
+  }
+}
+
+@keyframes box-shadow-landscape2 {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 0 0 35px #2e385a, 0 0 0 60px #232c4b, 0 0 0 100px #1e2949;
+  }
+}
+
+@keyframes box-shadow-landscape3 {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 0 0 35px #2e385a, 0 0 0 70px #232c4b, 0 0 0 120px #1e2949;
+  }
+}
